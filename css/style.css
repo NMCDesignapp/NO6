@@ -1,0 +1,138 @@
+/* --- CSS VARIABLES & RESET --- */
+:root {
+    --bg: #0b0f14;
+    --bg2: #121922;
+    --bg-card: #171f2b;
+    --fg: #f3efe7;
+    --muted: #8c8477;
+    --accent: #c6a56a;
+    --accent-strong: #e0c48c;
+    --accent-glow: #c6a56a4d;
+    --green: #91a676;
+    --red: #9f5f52;
+    --blue: #7d8ca3;
+    --border: #ffffff10;
+    --gold: #c6a56a;
+    --track: #201a14;
+    --track-fill: #d8bb86;
+    --track-soft: #6f5740;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    background: var(--bg);
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--fg);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- BACKGROUND ANIMATION --- */
+.bg-scene {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: radial-gradient(ellipse at 30% 20%, #0e2240 0%, var(--bg) 70%);
+}
+.bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .18;
+    animation: orbFloat 18s ease-in-out infinite alternate;
+}
+.bg-orb-1 { width: 500px; height: 500px; background: #091c36; top: -15%; left: -10%; }
+.bg-orb-2 { width: 400px; height: 400px; background: #0b1530; bottom: -10%; right: -10%; animation-delay: -6s; }
+.bg-orb-3 { width: 300px; height: 300px; background: #0d2040; top: 50%; left: 60%; animation-delay: -12s; }
+
+@keyframes orbFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -40px) scale(1.08); }
+    100% { transform: translate(-15px, 15px) scale(.95); }
+}
+
+/* --- LAYOUT UTILITIES --- */
+.app-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 16px 100px;
+}
+
+.view { display: none; animation: viewIn .4s ease-out; }
+.view.active { display: block; }
+
+@keyframes viewIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title {
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, #93c5fd 50%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-sub {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    margin-top: 4px;
+}
+
+/* --- CONTROLS --- */
+.ctrl-bar { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+.ctrl-select-wrap { position: relative; flex: 1; min-width: 160px; }
+.ctrl-select {
+    flex: 1; width: 100%; padding: 12px 16px; border-radius: 12px;
+    background: #ffffff0f; border: 1px solid #ffffff14; color: #fff;
+    font-weight: 700; font-size: 12px; outline: none; font-family: inherit;
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23fbbf24' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; text-align: left;
+}
+.ctrl-select-popup {
+    position: absolute; top: calc(100% + 8px); left: 0; width: 100%;
+    background: #12223bcc; border: 1px solid #ffffff14; border-radius: 12px;
+    box-shadow: 0 18px 36px #00000055; backdrop-filter: blur(12px); padding: 8px;
+    display: none; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px;
+    z-index: 30; max-height: 238px; overflow-y: auto;
+}
+.ctrl-select-wrap.open .ctrl-select-popup { display: grid; }
+.ctrl-select-opt {
+    min-height: 34px; border-radius: 9px; border: 1px solid #ffffff10;
+    background: #ffffff08; color: #dbe7f5; font-family: inherit;
+    font-size: 11px; font-weight: 800; cursor: pointer; transition: all .2s;
+}
+.ctrl-select-opt:hover { background: #ffffff14; color: #fff; border-color: #ffffff22; }
+.ctrl-select-opt.on {
+    background: linear-gradient(135deg, var(--accent), #f59e0b);
+    color: #000; border-color: #f4c261; box-shadow: 0 6px 18px #c6a56a45;
+}
+
+.btn-sync {
+    padding: 12px 22px; border-radius: 12px; border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), #f59e0b); color: #000;
+    font-weight: 900; font-size: 11px; text-transform: uppercase; font-family: inherit;
+    letter-spacing: .05em; transition: transform .15s, box-shadow .25s;
+    box-shadow: 0 4px 20px var(--accent-glow);
+}
+.btn-sync:hover { transform: translateY(-1px); box-shadow: 0 6px 30px var(--accent-glow); }
+.btn-sync:active { transform: scale(.96); }
+.btn-sync.loading { pointer-events: none; opacity: .7; }
+
+/* ... (Bạn có thể copy tiếp toàn bộ phần CSS còn lại từ index.html vào đây) ... */
