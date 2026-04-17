@@ -1,0 +1,24 @@
+{
+  "name": "no6-kpi-dashboard",
+  "version": "1.0.0",
+  "description": "KPI Dashboard for BVNT An Giang with Vercel Speed Insights integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "npx http-server -p 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NMCDesignapp/NO6.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NMCDesignapp/NO6/issues"
+  },
+  "homepage": "https://github.com/NMCDesignapp/NO6#readme",
+  "dependencies": {
+    "@vercel/speed-insights": "^2.0.0"
+  }
+}
